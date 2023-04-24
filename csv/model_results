@@ -1,0 +1,8 @@
+Model,Best Score,Best Parameter
+KNN,0.7683743403152125,"{'clf__n_neighbors': 20, 'clf__p': 2, 'clf__weights': 'uniform'}"
+ANN,0.7456682830512843,"{'clf__activation': 'relu', 'clf__alpha': 0.1, 'clf__hidden_layer_sizes': (50,)}"
+DNN,0.7848200767234578,"{'clf__batch_size': 128, 'clf__epochs': 50, 'clf__optimizer': 'rmsprop'}"
+Tree,0.6928430893123201,{'clf__max_depth': 4}
+Logit,0.788022262703331,{'clf__C': 0.1}
+RF,0.7524390185777786,"{'clf__max_depth': 4, 'clf__n_estimators': 40}"
+SVM,0.7886769667892857,"{'clf__C': 1000, 'clf__gamma': 0.0001}"
