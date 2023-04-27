@@ -1,17 +1,18 @@
-from flask import Flask, render_template, request
-from keras.models import load_model
-from sklearn.preprocessing import StandardScaler
+from flask import Flask, render_template, request, session
 import pandas as pd
+import joblib
 
 app = Flask(__name__)
-scaler = StandardScaler()
+
+#test_set=[]
+
 df = pd.read_csv('c:/bank_account_fraud/csv/model_results.csv')
 
 @app.route('/', methods=['GET'])
 def main():
     return render_template('/input.html')
 
-@app.route('/result', methods=['POST'])
+@app.route('/main_result', methods=['POST'])
 def main_result():
     # 변수 입력값 불러오기
     income = float(request.form['income'])
@@ -279,11 +280,12 @@ def main_result():
                  source_INTERNET, source_TELEAPP, device_os_linux, device_os_macintosh, device_os_other,
                  device_os_windows, device_os_x11
                  ]]
+    session['test_set'] = test_set
+    scaler = joblib.load('c:/bank_account_fraud/model/scaler.model')
     test_set_scaled = scaler.transform(test_set)
 
     # LOGIT
-    logit_model = load_model('c:/bank_account_fraud/model/logit.model')
-    logit_model.load_weights('c:/bank_account_fraud/model/logit.weight')
+    logit_model = joblib.load('c:/bank_account_fraud/model/logit.h5')
     logit_rate = logit_model.predict(test_set_scaled)
     if logit_rate >= 0.5:
         logit_result = '사기 계좌'
@@ -292,8 +294,7 @@ def main_result():
     logit_score = df[df.Model == 'Logit'].iloc[0, 1]
 
     # DECISION TREE
-    tree_model = load_model('c:/bank_account_fraud/model/tree.model')
-    tree_model.load_weights('c:/bank_account_fraud/model/tree.weight')
+    tree_model = joblib.load('c:/bank_account_fraud/model/tree.h5')
     tree_rate = tree_model.predict(test_set_scaled)
     if tree_rate >= 0.5:
         tree_result = '사기 계좌'
@@ -302,8 +303,7 @@ def main_result():
     tree_score = df[df.Model == 'Tree'].iloc[0, 1]
 
     # RANDOM FOREST
-    rf_model = load_model('c:/bank_account_fraud/model/rf.model')
-    rf_model.load_weights('c:/bank_account_fraud/model/rf.weight')
+    rf_model = joblib.load('c:/bank_account_fraud/model/rf.h5')
     rf_rate = rf_model.predict(test_set_scaled)
     if rf_rate >= 0.5:
         rf_result = '사기 계좌'
@@ -312,8 +312,7 @@ def main_result():
     rf_score = df[df.Model == 'RF'].iloc[0, 1]
 
     # SVM
-    svm_model = load_model('c:/bank_account_fraud/model/svm.model')
-    svm_model.load_weights('c:/bank_account_fraud/model/svm.weight')
+    svm_model = joblib.load('c:/bank_account_fraud/model/svm.h5')
     svm_rate = svm_model.predict(test_set_scaled)
     if svm_rate >= 0.5:
         svm_result = '사기 계좌'
@@ -322,8 +321,7 @@ def main_result():
     svm_score = df[df.Model == 'SVM'].iloc[0, 1]
 
     # KNN
-    knn_model = load_model('c:/bank_account_fraud/model/knn.model')
-    knn_model.load_weights('c:/bank_account_fraud/model/knn.weight')
+    knn_model = joblib.load('c:/bank_account_fraud/model/knn.h5')
     knn_rate = knn_model.predict(test_set_scaled)
     if knn_rate >= 0.5:
         knn_result = '사기 계좌'
@@ -332,8 +330,7 @@ def main_result():
     knn_score = df[df.Model == 'KNN'].iloc[0, 1]
 
     # ANN
-    ann_model = load_model('c:/bank_account_fraud/model/ann.model')
-    ann_model.load_weights('c:/bank_account_fraud/model/ann.weight')
+    ann_model = joblib.load('c:/bank_account_fraud/model/ann.h5')
     ann_rate = ann_model.predict(test_set_scaled)
     if ann_rate >= 0.5:
         ann_result = '사기 계좌'
@@ -342,8 +339,7 @@ def main_result():
     ann_score = df[df.Model == 'ANN'].iloc[0, 1]
 
     # DNN
-    dnn_model = load_model('c:/bank_account_fraud/model/dnn.model')
-    dnn_model.load_weights('c:/bank_account_fraud/model/dnn.weight')
+    dnn_model = joblib.load('c:/bank_account_fraud/model/dnn.h5')
     dnn_rate = dnn_model.predict(test_set_scaled)
     if dnn_rate >= 0.5:
         dnn_result = '사기계좌'
@@ -368,6 +364,22 @@ def main_result():
                            keep_alive_session_r=keep_alive_session_r, device_distinct_emails_8w=device_distinct_emails_8w,
                            month=month, payment=payment, employment=employment, housing=housing, source_r=source_r, device=device
                            )
+
+@app.route('/model_result', methods=['POST'])
+def model_result(model):
+    test_set = session['test_set']
+    scaler = joblib.load('c:/bank_account_fraud/model/scaler.model')
+    test_set_scaled = scaler.transform(test_set)
+    m = joblib.load(f'c:/bank_account_fraud/model/{model}.h5')
+    rate = m.predict(test_set_scaled)
+    if rate >= 0.5:
+        result = '사기 계좌'
+    else:
+        result = '정상 계좌'
+    score = df[df.Model == model].iloc[0, 1]
+    param = df[df.Model == model].iloc[0, 2]
+    return render_template(f'/{model}_result.html', rate='{:.2f}%'.format(rate[0][0]*100), result=result, score=score,
+                           param=param, auc=auc)
 
 if __name__ == '__main__':
     #웹브라우저에서 실행할 때 http://localhost로 하면 느림

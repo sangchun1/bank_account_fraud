@@ -1,8 +1,4 @@
-Model,Best Score,Best Parameter
-KNN,0.7683743403152125,"{'clf__n_neighbors': 20, 'clf__p': 2, 'clf__weights': 'uniform'}"
-ANN,0.7456682830512843,"{'clf__activation': 'relu', 'clf__alpha': 0.1, 'clf__hidden_layer_sizes': (50,)}"
-DNN,0.7844563028037775,"{'clf__batch_size': 128, 'clf__epochs': 50, 'clf__optimizer': 'adam'}"
-Tree,0.7145249808795077,"{'clf__max_depth': 3, 'clf__max_leaf_nodes': 3, 'clf__min_samples_split': 2}"
-Logit,0.788022262703331,"{'clf__C': 0.1, 'clf__class_weight': 1, 'clf__max_iter': 1000, 'clf__penalty': 'l2'}"
-RF,0.745670729711704,"{'clf__max_leaf_nodes': 3, 'clf__min_samples_split': 2}"
-SVM,0.7886769667892857,"{'clf__C': 1000, 'clf__gamma': 0.0001}"
+Model,Best Score,Best Parameter,Precision,Recall,F1-score,TPR,FPR,AUC
+KNN,0.7683743403152125,"{'clf__n_neighbors': 20, 'clf__p': 2, 'clf__weights': 'uniform'}",0.8148741085722602,0.778071150639244,0.7960474870263738,0.778071150639244,0.1943171402383134,0.87
+ANN,0.7456682830512843,"{'clf__activation': 'relu', 'clf__alpha': 0.1, 'clf__hidden_layer_sizes': (50,)}",0.8518410711686799,0.8487529002320185,0.8502941817389409,0.8487529002320185,0.1486999707858603,0.93
+DNN,0.7844563028037775,"{'clf__batch_size': 128, 'clf__epochs': 50, 'clf__optimizer': 'adam'}",0.831756658419444,0.8177135498640721,0.8246753246753246,0.8177135498640721,0.17118317784688286,0.9
