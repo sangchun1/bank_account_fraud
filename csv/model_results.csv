@@ -5,4 +5,4 @@ DNN,0.7844563028037775,"{'clf__batch_size': 128, 'clf__epochs': 50, 'clf__optimi
 Tree,0.7145249808795077,"{'clf__max_depth': 3, 'clf__max_leaf_nodes': 3, 'clf__min_samples_split': 2}"
 Logit,0.7879494983869518,"{'clf__C': 0.1, 'clf__class_weight': 'balanced', 'clf__max_iter': 1000, 'clf__penalty': 'l2'}"
 RF,0.7438521937488144,"{'clf__max_depth': 4, 'clf__max_leaf_nodes': 8, 'clf__min_samples_split': 402, 'clf__n_estimators': 40}"
-SVM,0.7886769667892857,"{'clf__C': 1000, 'clf__gamma': 0.0001}"
+SVM,0.7889682782532877,"{'clf__C': 1000, 'clf__gamma': 0.0001, 'clf__kernel': 'linear'}"
