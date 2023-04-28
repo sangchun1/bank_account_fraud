@@ -4,72 +4,169 @@
     <meta charset="UTF-8">
     <title>은행 사기계좌 탐지 결과</title>
 </head>
-<body>
-    <h2>은행 사기계좌 탐지 결과</h2>
-    <h3>입력값 : </h3>
-    : {{income}}<br>
-    : {{name_email_similarity}}<br>
-    : {{current_address_months_count}}<br>
-    : {{customer_age}}<br>
-    : {{days_since_request}}<br>
-    : {{intended_balcon_amount}}<br>
-    : {{zip_count_4w}}<br>
-    : {{velocity_24h}}<br>
-    : {{date_of_birth_distinct_emails_4w}}<br>
-    : {{credit_risk_score}}<br>
-    : {{email}}<br>
-    : {{phone_home}}<br>
-    : {{phone_mobile}}<br>
-    : {{bank_months_count}}<br>
-    : {{other_cards}}<br>
-    : {{proposed_credit_limit}}<br>
-    : {{foreign_request_}}<br>
-    : {{keep_alive_session_r}}<br>
-    : {{device_distinct_emails_8w}}<br>
-    : {{month}}<br>
-    : {{payment}}<br>
-    : {{employment}}<br>
-    : {{housing}}<br>
-    : {{source_r}}<br>
-    : {{device}}<br>
-
-    <h3>결과</h3>
-    <b><a href="/logit_result.html">로지스틱</a></b> :<br>
-    결과 : {{logit_result}}<br>
-    확률 : {{logit_rate}}<br>
-    모형 정확도 : {{logit_score}}<br>
-    <hr>
-    <b><a href="/tree_result.html">의사결정나무</a></b> :<br>
-    결과 : {{tree_result}}<br>
-    확률 : {{tree_rate}}<br>
-    모형 정확도 : {{tree_score}}<br>
-    <hr>
-    <b><a href="/rf_result.html">랜덤포레스트</a></b> :<br>
-    결과 : {{rf_result}}<br>
-    확률 : {{rf_rate}}<br>
-    모형 정확도 : {{rf_score}}<br>
-    <hr>
-    <b><a href="/svm_result.html">Support Vector Machine</a></b> :<br>
-    결과 : {{svm_result}}<br>
-    확률 : {{svm_rate}}<br>
-    모형 정확도 : {{svm_score}}<br>
-    <hr>
-    <b><a href="/knn_result.html">사례기반추론</a></b> :<br>
-    결과 : {{knn_result}}<br>
-    확률 : {{knn_rate}}<br>
-    모형 정확도 : {{knn_score}}<br>
-    <hr>
-    <b><a href="/ann_result.html">인공신경망(scikit-learn)</a></b> :<br>
-    결과 : {{ann_result}}<br>
-    확률 : {{ann_rate}}<br>
-    모형 정확도 : {{ann_score}}<br>
-    <hr>
-    <b><a href="/dnn_result.html">인공신경망(tensorflow)</a></b> :<br>
-    결과 : {{dnn_result}}<br>
-    확률 : {{dnn_rate}}<br>
-    모형 정확도 : {{dnn_score}}<br>
-    <hr>
-    <a href="#" onclick="history.back()">Back</a>
-    <a href="/">Home</a>
+<body align="center">
+    <h1>은행 사기계좌 탐지 결과</h1>
+    <div>
+        <a href="#" onclick="history.back()">Back</a>
+        <a href="/">Home</a>
+    </div>
+    <div style="width:50%;float:left;">
+        <h2>입력값</h2>
+        <table align="center" border="1">
+            <tr>
+                <td align="left">연간 소득 분위수(0~1):</td>
+                <td>{{income}}</td>
+            </tr>
+            <tr>
+                <td align="left">이메일과 고객의 이름 유사성(0~1):</td>
+                <td>{{name_email_similarity}}</td>
+            </tr>
+            <tr>
+                <td align="left">현재 등록된 고객 주소의 개월수:</td>
+                <td>{{current_address_months_count}}</td>
+            </tr>
+            <tr>
+                <td align="left">연령대:</td>
+                <td>{{customer_age}}</td>
+            </tr>
+            <tr>
+                <td align="left">계좌 생성이 완료된 후 경과된 일수:</td>
+                <td>{{days_since_request}}</td>
+            </tr>
+            <tr>
+                <td align="left">계좌 생성을 위한 초기 이체 금액:</td>
+                <td>{{intended_balcon_amount}}</td>
+            </tr>
+            <tr>
+                <td align="left">지난 4주 동안 동일한 우편 번호 지역 내의 뱅킹 프로그램 접속 횟수:</td>
+                <td>{{zip_count_4w}}</td>
+            </tr>
+            <tr>
+                <td align="left">지난 24시간 동안 이루어진 특수한 목적의 자금 회전율:</td>
+                <td>{{velocity_24h}}</td>
+            </tr>
+            <tr>
+                <td align="left">지난 4주 동안 같은 생년월일의 고객의 이메일 수:</td>
+                <td>{{date_of_birth_distinct_emails_4w}}</td>
+            </tr>
+            <tr>
+                <td align="left">응용 프로그램 위험의 내부 점수:</td>
+                <td>{{credit_risk_score}}</td>
+            </tr>
+            <tr>
+                <td align="left">등록된 고객의 이메일 도메인의 유,무료 여부:</td>
+                <td>{{email}}</td>
+            </tr>
+            <tr>
+                <td align="left">등록된 고객의 집 전화번호 유효성:</td>
+                <td>{{phone_home}}</td>
+            </tr>
+            <tr>
+                <td align="left">등록된 고객의 휴대폰 전화번호 유효성:</td>
+                <td>{{phone_mobile}}</td>
+            </tr>
+            <tr>
+                <td align="left">이전 계좌의 생성된뒤 지난 개월수:</td>
+                <td>{{bank_months_count}}</td>
+            </tr>
+            <tr>
+                <td align="left">고객이 동일한 은행의 다른 카드를 가지고 있는지의 대한 여부:</td>
+                <td>{{other_cards}}</td>
+            </tr>
+            <tr>
+                <td align="left">고객이 요청한 신용 한도:</td>
+                <td>{{proposed_credit_limit}}</td>
+            </tr>
+            <tr>
+                <td align="left">신청한 국가가 은행의 국가와 다른 경우:</td>
+                <td>{{foreign_request_}}</td>
+            </tr>
+            <tr>
+                <td align="left">세션 로그아웃 시 사용자 옵션:</td>
+                <td>{{keep_alive_session_r}}</td>
+            </tr>
+            <tr>
+                <td align="left">지난 8주 동안 은행 웹 사이트의 고유 이메일을 사용한 장치 수:</td>
+                <td>{{device_distinct_emails_8w}}</td>
+            </tr>
+            <tr>
+                <td align="left">중고 장치에 대한 사기성 응용 프로그램의 수:</td>
+                <td>{{month}}</td>
+            </tr>
+            <tr>
+                <td align="left">신용 지불 계획 유형:</td>
+                <td>{{payment}}</td>
+            </tr>
+            <tr>
+                <td align="left">고용 상태:</td>
+                <td>{{employment}}</td>
+            </tr>
+            <tr>
+                <td align="left">현재 거주 상태:</td>
+                <td>{{housing}}</td>
+            </tr>
+            <tr>
+                <td align="left">온라인 신청 출처:</td>
+                <td>{{source_r}}</td>
+            </tr>
+            <tr>
+                <td align="left">요청한 장치의 운영 체제 종류:</td>
+                <td>{{device}}</td>
+            </tr>
+        </table>
+    </div>
+    <div style="width:50%;float:right;">
+        <h2>결과</h2>
+        <table align="center" border="1">
+            <tr>
+                <th>모형</th>
+                <th>결과</th>
+                <th>확률</th>
+                <th>모형 정확도</th>
+            </tr>
+            <tr>
+                <th><a href="/logit_result.html">로지스틱</a></th>
+                <td>{{logit_result}}</td>
+                <td>{{logit_rate}}</td>
+                <td>{{logit_score}}</td>
+            </tr>
+            <tr>
+                <th><a href="/tree_result.html">의사결정나무</a></th>
+                <td>{{tree_result}}</td>
+                <td>{{tree_rate}}</td>
+                <td>{{tree_score}}</td>
+            </tr>
+            <tr>
+                <th><a href="/rf_result.html">랜덤포레스트</a></th>
+                <td>{{rf_result}}</td>
+                <td>{{rf_rate}}</td>
+                <td>{{rf_score}}</td>
+            </tr>
+            <tr>
+                <th><a href="/svm_result.html">서포트벡터머신</a></th>
+                <td>{{svm_result}}</td>
+                <td>{{svm_rate}}</td>
+                <td>{{svm_score}}</td>
+            </tr>
+            <tr>
+                <th><a href="/knn_result.html">사례기반추론</a></th>
+                <td>{{knn_result}}</td>
+                <td>{{knn_rate}}</td>
+                <td>{{knn_score}}</td>
+            </tr>
+            <tr>
+                <th><a href="/ann_result.html">인공신경망(scikit-learn)</a></th>
+                <td>{{ann_result}}</td>
+                <td>{{ann_rate}}</td>
+                <td>{{ann_score}}</td>
+            </tr>
+            <tr>
+                <th><a href="/dnn_result.html">인공신경망(tensorflow)</a></th>
+                <td>{{dnn_result}}</td>
+                <td>{{dnn_rate}}</td>
+                <td>{{dnn_score}}</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

@@ -378,8 +378,15 @@ def model_result(model):
         result = '정상 계좌'
     score = df[df.Model == model].iloc[0, 1]
     param = df[df.Model == model].iloc[0, 2]
-    return render_template(f'/{model}_result.html', rate='{:.2f}%'.format(rate[0][0]*100), result=result, score=score,
-                           param=param, auc=auc)
+    precision = df[df.Model == model].iloc[0, 3]
+    recall = df[df.Model == model].iloc[0, 4]
+    f = df[df.Model == model].iloc[0, 5]
+    tpr = df[df.Model == model].iloc[0, 6]
+    fpr = df[df.Model == model].iloc[0, 7]
+    auc = df[df.Model == model].iloc[0, 8]
+    return render_template(f'/{model}_result.html', rate='{:.2f}%'.format(rate[0][0]*100), result=result,
+                           score=score, param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
+                           auc=auc)
 
 if __name__ == '__main__':
     #웹브라우저에서 실행할 때 http://localhost로 하면 느림
