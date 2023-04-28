@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 import pandas as pd
 import joblib
+from keras.models import load_model
 
 app = Flask(__name__)
 
@@ -339,7 +340,7 @@ def main_result():
     ann_score = df[df.Model == 'ANN'].iloc[0, 1]
 
     # DNN
-    dnn_model = joblib.load('c:/bank_account_fraud/model/dnn.h5')
+    dnn_model = load_model('c:/bank_account_fraud/model/dnn.h5')
     dnn_rate = dnn_model.predict(test_set_scaled)
     if dnn_rate >= 0.5:
         dnn_result = '사기계좌'
@@ -389,6 +390,8 @@ def model_result(model):
                            auc=auc)
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
     #웹브라우저에서 실행할 때 http://localhost로 하면 느림
     #http://127.0.0.1로 할 것
     app.run(port=8000, threaded=False)
