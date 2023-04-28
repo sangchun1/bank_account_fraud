@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>은행 사기계좌 탐지</title>
+</head>
+<body>
+    <h1 align="center">은행 사기계좌 탐지</h1>
+    <form method="post" action="main_result">
+        <table align="center" border="1">
+            <tr>
+                <td>연간 소득 분위수(0~1):</td>
+                <td align="center"><input type="text" name="income"></td>
+            </tr>
+            <tr>
+                <td>이메일과 고객의 이름 유사성(0~1):</td>
+                <td align="center"><input type="text" name="name_email_similarity"></td>
+            </tr>
+            <tr>
+                <td>현재 등록된 고객 주소의 개월수:</td>
+                <td align="center"><input type="text" name="current_address_months_count"></td>
+            </tr>
+            <tr>
+                <td>연령대:</td>
+                <td align="center"><input type="text" name="customer_age"></td>
+            </tr>
+            <tr>
+                <td>계좌 생성이 완료된 후 경과된 일수:</td>
+                <td align="center"><input type="text" name="days_since_request"></td>
+            </tr>
+            <tr>
+                <td>계좌 생성을 위한 초기 이체 금액:</td>
+                <td align="center"><input type="text" name="intended_balcon_amount"></td>
+            </tr>
+            <tr>
+                <td>지난 4주 동안 동일한 우편 번호 지역 내의 뱅킹 프로그램 접속 횟수:</td>
+                <td align="center"><input type="text" name="zip_count_4w"></td>
+            </tr>
+            <tr>
+                <td>지난 24시간 동안 이루어진 특수한 목적의 자금 회전율:</td>
+                <td align="center"><input type="text" name="velocity_24h"></td>
+            </tr>
+            <tr>
+                <td>지난 4주 동안 같은 생년월일의 고객의 이메일 수:</td>
+                <td align="center"><input type="text" name="date_of_birth_distinct_emails_4w"></td>
+            </tr>
+            <tr>
+                <td>응용 프로그램 위험의 내부 점수:</td>
+                <td align="center"><input type="text" name="credit_risk_score"></td>
+            </tr>
+            <tr>
+                <td>등록된 고객의 이메일 도메인의 유,무료 여부:</td>
+                <td align="center">
+                    <select name="email_is_free">
+                        <option value="1">무료 이메일</option>
+                        <option value="0">유료 이메일</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>등록된 고객의 집 전화번호 유효성:</td>
+                <td align="center">
+                   <select name="phone_home_valid">
+                        <option value="1">집전화 있음</option>
+                        <option value="0">집전화 없음</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>등록된 고객의 휴대폰 전화번호 유효성:</td>
+                <td align="center">
+                    <select name="phone_mobile_valid">
+                        <option value="1">휴대전화 있음</option>
+                        <option value="0">휴대전화 없음</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>이전 계좌의 생성된뒤 지난 개월수:</td>
+                <td align="center"><input type="text" name="bank_months_count"></td>
+            </tr>
+            <tr>
+                <td>고객이 동일한 은행의 다른 카드를 가지고 있는지의 대한 여부:</td>
+                <td align="center">
+                    <select name="has_other_cards">
+                        <option value="1">다른 카드가 있음</option>
+                        <option value="0">다른 카드가 없음</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>고객이 요청한 신용 한도:</td>
+                <td align="center"><input type="text" name="proposed_credit_limit"></td>
+            </tr>
+            <tr>
+                <td>신청한 국가가 은행의 국가와 다른 경우:</td>
+                <td align="center">
+                    <select name="foreign_request">
+                        <option value="0">국내 승인요청</option>
+                        <option value="1">해외 승인요청</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>세션 로그아웃 시 사용자 옵션:</td>
+                <td align="center">
+                    <select name="keep_alive_session">
+                        <option value="0">세션 로그아웃 함</option>
+                        <option value="1">세션 로그아웃 안 함</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>지난 8주 동안 은행 웹 사이트의 고유 이메일을 사용한 장치 수:</td>
+                <td align="center"><input type="text" name="device_distinct_emails_8w"></td>
+            </tr>
+            <tr>
+                <td>중고 장치에 대한 사기성 응용 프로그램의 수:</td>
+                <td align="center"><input type="text" name="month"></td>
+            </tr>
+            <tr>
+                <td>신용 지불 계획 유형:</td>
+                <td align="center">
+                    <select name="payment_type">
+                        <option value="0">AA</option>
+                        <option value="1">AB</option>
+                        <option value="2">AC</option>
+                        <option value="3">AD</option>
+                        <option value="4">AE</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>고용 상태:</td>
+                <td align="center">
+                    <select name="employment_status">
+                        <option value="0">CA</option>
+                        <option value="1">CB</option>
+                        <option value="2">CC</option>
+                        <option value="3">CD</option>
+                        <option value="4">CE</option>
+                        <option value="5">CF</option>
+                        <option value="6">CG</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>현재 거주 상태:</td>
+                <td align="center">
+                    <select name="housing_status">
+                        <option value="0">BA</option>
+                        <option value="1">BB</option>
+                        <option value="2">BC</option>
+                        <option value="3">BD</option>
+                        <option value="4">BE</option>
+                        <option value="5">BF</option>
+                        <option value="6">BG</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>온라인 신청 출처:</td>
+                <td align="center">
+                    <select name="source">
+                        <option value="0">브라우저</option>
+                        <option value="1">모바일</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>요청한 장치의 운영 체제 종류:</td>
+                <td align="center">
+                    <select name="device_os">
+                        <option value="0">Linux</option>
+                        <option value="1">Macintosh</option>
+                        <option value="2">기타</option>
+                        <option value="3">Windows</option>
+                        <option value="4">X11</option>
+                    </select>
+                </td>
+            </tr>
+            <tr align="center">
+                <td colspan="2"><input type="submit" value="확인"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

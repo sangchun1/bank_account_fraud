@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>은행 사기계좌 탐지 결과</title>
+</head>
+<body>
+    <h2>은행 사기계좌 탐지 결과</h2>
+    <h3>입력값 : </h3>
+    : {{income}}<br>
+    : {{name_email_similarity}}<br>
+    : {{current_address_months_count}}<br>
+    : {{customer_age}}<br>
+    : {{days_since_request}}<br>
+    : {{intended_balcon_amount}}<br>
+    : {{zip_count_4w}}<br>
+    : {{velocity_24h}}<br>
+    : {{date_of_birth_distinct_emails_4w}}<br>
+    : {{credit_risk_score}}<br>
+    : {{email}}<br>
+    : {{phone_home}}<br>
+    : {{phone_mobile}}<br>
+    : {{bank_months_count}}<br>
+    : {{other_cards}}<br>
+    : {{proposed_credit_limit}}<br>
+    : {{foreign_request_}}<br>
+    : {{keep_alive_session_r}}<br>
+    : {{device_distinct_emails_8w}}<br>
+    : {{month}}<br>
+    : {{payment}}<br>
+    : {{employment}}<br>
+    : {{housing}}<br>
+    : {{source_r}}<br>
+    : {{device}}<br>
+
+    <h3>결과</h3>
+    <b><a href="/logit_result.html">로지스틱</a></b> :<br>
+    결과 : {{logit_result}}<br>
+    확률 : {{logit_rate}}<br>
+    모형 정확도 : {{logit_score}}<br>
+    <hr>
+    <b><a href="/tree_result.html">의사결정나무</a></b> :<br>
+    결과 : {{tree_result}}<br>
+    확률 : {{tree_rate}}<br>
+    모형 정확도 : {{tree_score}}<br>
+    <hr>
+    <b><a href="/rf_result.html">랜덤포레스트</a></b> :<br>
+    결과 : {{rf_result}}<br>
+    확률 : {{rf_rate}}<br>
+    모형 정확도 : {{rf_score}}<br>
+    <hr>
+    <b><a href="/svm_result.html">Support Vector Machine</a></b> :<br>
+    결과 : {{svm_result}}<br>
+    확률 : {{svm_rate}}<br>
+    모형 정확도 : {{svm_score}}<br>
+    <hr>
+    <b><a href="/knn_result.html">사례기반추론</a></b> :<br>
+    결과 : {{knn_result}}<br>
+    확률 : {{knn_rate}}<br>
+    모형 정확도 : {{knn_score}}<br>
+    <hr>
+    <b><a href="/ann_result.html">인공신경망(scikit-learn)</a></b> :<br>
+    결과 : {{ann_result}}<br>
+    확률 : {{ann_rate}}<br>
+    모형 정확도 : {{ann_score}}<br>
+    <hr>
+    <b><a href="/dnn_result.html">인공신경망(tensorflow)</a></b> :<br>
+    결과 : {{dnn_result}}<br>
+    확률 : {{dnn_rate}}<br>
+    모형 정확도 : {{dnn_score}}<br>
+    <hr>
+    <a href="#" onclick="history.back()">Back</a>
+    <a href="/">Home</a>
+</body>
+</html>
