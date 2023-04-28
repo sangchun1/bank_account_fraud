@@ -123,49 +123,71 @@
                 <th>결과</th>
                 <th>확률</th>
                 <th>모형 정확도</th>
+                <td>&nbsp;</td>
             </tr>
-            <tr>
-                <th><a href="/logit_result.html">로지스틱</a></th>
-                <td>{{logit_result}}</td>
-                <td>{{logit_rate}}</td>
-                <td>{{logit_score}}</td>
-            </tr>
-            <tr>
-                <th><a href="/tree_result.html">의사결정나무</a></th>
-                <td>{{tree_result}}</td>
-                <td>{{tree_rate}}</td>
-                <td>{{tree_score}}</td>
-            </tr>
-            <tr>
-                <th><a href="/rf_result.html">랜덤포레스트</a></th>
-                <td>{{rf_result}}</td>
-                <td>{{rf_rate}}</td>
-                <td>{{rf_score}}</td>
-            </tr>
-            <tr>
-                <th><a href="/svm_result.html">서포트벡터머신</a></th>
-                <td>{{svm_result}}</td>
-                <td>{{svm_rate}}</td>
-                <td>{{svm_score}}</td>
-            </tr>
-            <tr>
-                <th><a href="/knn_result.html">사례기반추론</a></th>
-                <td>{{knn_result}}</td>
-                <td>{{knn_rate}}</td>
-                <td>{{knn_score}}</td>
-            </tr>
-            <tr>
-                <th><a href="/ann_result.html">인공신경망(scikit-learn)</a></th>
-                <td>{{ann_result}}</td>
-                <td>{{ann_rate}}</td>
-                <td>{{ann_score}}</td>
-            </tr>
-            <tr>
-                <th><a href="/dnn_result.html">인공신경망(tensorflow)</a></th>
-                <td>{{dnn_result}}</td>
-                <td>{{dnn_rate}}</td>
-                <td>{{dnn_score}}</td>
-            </tr>
+            <form method="post" action="model_result(logit)">
+                <tr>
+                    <th>로지스틱</th>
+                    <td>{{logit_result}}</td>
+                    <td>{{logit_rate}}</td>
+                    <td>{{logit_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
+            <form method="post" action="model_result(tree)">
+               <tr>
+                    <th>의사결정나무</th>
+                    <td>{{tree_result}}</td>
+                    <td>{{tree_rate}}</td>
+                    <td>{{tree_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
+            <form method="post" action="model_result(rf)">
+                <tr>
+                    <th>랜덤포레스트</th>
+                    <td>{{rf_result}}</td>
+                    <td>{{rf_rate}}</td>
+                    <td>{{rf_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
+            <form method="post" action="model_result(svm)">
+                <tr>
+                    <th>서포트벡터머신</th>
+                    <td>{{svm_result}}</td>
+                    <td>{{svm_rate}}</td>
+                    <td>{{svm_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
+            <form method="post" action="model_result(knn)">
+                <tr>
+                    <th>사례기반추론</th>
+                    <td>{{knn_result}}</td>
+                    <td>{{knn_rate}}</td>
+                    <td>{{knn_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
+            <form method="post" action="model_result(ann)">
+                <tr>
+                    <th>인공신경망(scikit-learn)</th>
+                    <td>{{ann_result}}</td>
+                    <td>{{ann_rate}}</td>
+                    <td>{{ann_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
+            <form method="post" action="model_result(dnn)">
+                <tr>
+                    <th>인공신경망(tensorflow)</th>
+                    <td>{{dnn_result}}</td>
+                    <td>{{dnn_rate}}</td>
+                    <td>{{dnn_score}}</td>
+                    <td><input type="submit" value="상세결과 보기"></td>
+                </tr>
+            </form>
         </table>
     </div>
 </body>
