@@ -312,14 +312,14 @@ def main_result():
         rf_result = '정상 계좌'
     rf_score = df[df.Model == 'RF'].iloc[0, 1]
 
-    # # SVM
-    # svm_model = joblib.load('c:/bank_account_fraud/model/svm.h5')
-    # svm_rate = svm_model.predict(test_set_scaled)
-    # if svm_rate >= 0.5:
-    #     svm_result = '사기 계좌'
-    # else:
-    #     svm_result = '정상 계좌'
-    # svm_score = df[df.Model == 'SVM'].iloc[0, 1]
+    # SVM
+    svm_model = joblib.load('c:/bank_account_fraud/model/svm.h5')
+    svm_rate = svm_model.predict(test_set_scaled)
+    if svm_rate >= 0.5:
+        svm_result = '사기 계좌'
+    else:
+        svm_result = '정상 계좌'
+    svm_score = df[df.Model == 'SVM'].iloc[0, 1]
 
     # KNN
     knn_model = joblib.load('c:/bank_account_fraud/model/knn.h5')
@@ -350,13 +350,11 @@ def main_result():
 
     return render_template('/main_result.html', logit_rate='{:.2f}%'.format(logit_rate[0][0]*100),
                            tree_rate='{:.2f}%'.format(tree_rate[0][0]*100), rf_rate='{:.2f}%'.format(rf_rate[0][0]*100),
-                           # svm_rate='{:.2f}%'.format(svm_rate[0][0] * 100),
-                           knn_rate='{:.2f}%'.format(knn_rate[0][0]*100),
+                           svm_rate='{:.2f}%'.format(svm_rate[0][0] * 100), knn_rate='{:.2f}%'.format(knn_rate[0][0]*100),
                            ann_rate='{:.2f}%'.format(ann_rate[0][0]*100), dnn_rate='{:.2f}%'.format(dnn_rate[0][0] * 100),
-                           logit_result=logit_result, tree_result=tree_result, rf_result=rf_result, #svm_result=svm_result,
+                           logit_result=logit_result, tree_result=tree_result, rf_result=rf_result, svm_result=svm_result,
                            knn_result=knn_result, ann_result=ann_result, dnn_result=dnn_result, logit_score=logit_score,
-                           tree_score=tree_score, rf_score=rf_score, #svm_score=svm_score,
-                           knn_score=knn_score,
+                           tree_score=tree_score, rf_score=rf_score, svm_score=svm_score, knn_score=knn_score,
                            ann_score=ann_score, dnn_score=dnn_score, income=income, name_email_similarity=name_email_similarity,
                            current_address_months_count=current_address_months_count, customer_age=customer_age,
                            days_since_request=days_since_request, intended_balcon_amount=intended_balcon_amount,
