@@ -3,69 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>랜덤포레스트 상세 결과</title>
+    <style>
+        table { border-collapse: collapse; }
+        th { height: 50px; }
+    </style>
 </head>
 <body align="center">
     <h2>랜덤포레스트(Random Forest) 상세 결과</h2>
-    <table align="center" border="1">
+    <table align="center" border="1" style="width:90%">
         <tr>
-            <th>결과</th>
-            <td>{{result}}</td>
-            <td></td>
+            <th style="width:20%">결과</th>
+            <td style="width:40%">{{result}}</td>
+            <td style="width:40%">
+                모형(알고리즘)이 판단하였을 때에 해당 계좌가 사기 계좌인지 아닌지를 나타내는 결과
+            </td>
         </tr>
         <tr>
             <th>확률</th>
             <td>{{rate}}</td>
-            <td></td>
+            <td>
+                모형(알고리즘)이 판단하였을 때에 결과에 따라 해당 계좌가 사기 계좌나 정상 계좌일 확률
+            </td>
         </tr>
         <tr>
             <th>모형 정확도</th>
             <td>{{score}}</td>
-            <td></td>
+            <td>
+                해당 모형(알고리즘)이 해당 계좌가 사기계좌인지 아닌지를 얼마나 정확하게 탐지하는지 나타내는 정확도
+            </td>
         </tr>
         <tr>
             <th>최적의 파라미터</th>
             <td>{{param}}</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>Precision</th>
-            <td>{{precision}}</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>Recall</th>
-            <td>{{recall}}</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>F1-score</th>
-            <td>{{f}}</td>
-            <td></td>
+            <td>
+                모형(알고리즘)의 정확도를 가장 최적으로 만들어주는 설정값
+            </td>
         </tr>
         <tr>
             <th>Confusion Matrix</th>
             <td><img src="{{cm}}" alt="Confusion Matrix"></td>
-            <td></td>
+            <td>
+                <img src="{{cm_ex}}" alt="CM Explanation">
+                <ul>
+                    <li>True Positive(TP) : 실제 True인 정답을 True라고 예측 (정답)</li>
+                    <li>False Positive(FP) : 실제 False인 정답을 True라고 예측 (오답)</li>
+                    <li>False Negative(FN) : 실제 True인 정답을 False라고 예측 (오답)</li>
+                    <li>True Negative(TN) : 실제 False인 정답을 False라고 예측 (정답)</li>
+                </ul>
+            </td>
         </tr>
         <tr>
-            <th>TPR</th>
+            <th>정밀도(Precision)</th>
+            <td>{{precision}}</td>
+            <td>
+                모형(알고리즘)이 사기계좌로 예측한 것들 중에 실제로 사기계좌인 비율<br>
+                <img src="{{p_ex}}" alt="Precision Explanation">
+            </td>
+        </tr>
+        <tr>
+            <th>재현율(Recall)</th>
+            <td>{{recall}}</td>
+            <td>
+                실제 사기계좌인 것들 중에 모형(알고리즘)이 사기계좌라고 예측한 비율<br>
+                <img src="{{r_ex}}" alt="Recall Explanation">
+            </td>
+        </tr>
+        <tr>
+            <th>F1-score</th>
+            <td>{{f}}</td>
+            <td>
+                정밀도(precision)와 재현율(recall)의 조화평균. 정밀도가 높다고 무조건 좋은 모형(알고리즘)도 아니고 재현율이 높다고 무조건 좋은 모형이 아니다. 정밀도만 높고 재현율이 낮다면
+                그래서 그 둘의 조화평균인 F1-score를 보아 좋은 모형(알고리즘)인지 아닌지를 판단한다. F1-score가 높을 수록 좋은 모형(알고리즘).<br>
+                <img src="{{f_ex}}" alt="F1-Score Explanation">
+            </td>
+        </tr>
+        <tr>
+            <th>True-Positive Rate(TPR)</th>
             <td>{{tpr}}</td>
-            <td></td>
+            <td>
+                실제 사기계좌인 것들 중에 모형(알고리즘)이 사기계좌라고 제대로 예측한 비율(재현율과 동일함)
+            </td>
         </tr>
         <tr>
-            <th>FPR</th>
+            <th>False-Positive Rate(FPR)</th>
             <td>{{fpr}}</td>
-            <td></td>
+            <td>
+                실제 사기계좌가 아닌 것들 중에 모형(알고리즘)이 사기계좌라고 잘못 예측한 비율.
+            </td>
         </tr>
         <tr>
-            <th>ROC-Curve</th>
+            <th>Receiver Operating Characteristic(ROC) Curve</th>
             <td><img src="{{roc}}" alt="ROC Curve"></td>
-            <td></td>
+            <td>
+                여러 임계값들을 기준으로 TPR과 FPR의 변화를 그린 그래프. 커브가 왼쪽 윗모서리에 가까울 수록 더 좋은 모형(알고리즘)이다.
+            </td>
         </tr>
         <tr>
-            <th>AUC</th>
+            <th>Area Under Curve(AUC)</th>
             <td>{{auc}}</td>
-            <td></td>
+            <td>
+                ROC Curve 아래의 면적값. 최대값은 1이며 1에 가까울 수록 더 좋은 모형(알고리즘)이다.
+                면적이 1에 가깝다는 것은 FPR에 비해 TPR 값이 크다는 것, 즉, 잘못 예측한 비율보다 제대로 예측한 비율이 더 높다는 뜻이다.
+            </td>
         </tr>
     </table>
     <a href="#" onclick="history.back()">Back</a>

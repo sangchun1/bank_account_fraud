@@ -423,10 +423,14 @@ def model_result():
 
     cm = os.path.join(app.config['UPLOAD_FOLDER'], f'{model_name}_cm.png')
     roc = os.path.join(app.config['UPLOAD_FOLDER'], f'{model_name}_roc.png')
+    cm_ex = os.path.join(app.config['UPLOAD_FOLDER'], 'cm_ex.png')
+    p_ex = os.path.join(app.config['UPLOAD_FOLDER'], 'p_ex.png')
+    r_ex = os.path.join(app.config['UPLOAD_FOLDER'], 'r_ex.png')
+    f_ex = os.path.join(app.config['UPLOAD_FOLDER'], 'f_ex.png')
 
     return render_template(f'/{model_name}_result.html', rate='{:.2f}%'.format(rate*100), result=result,
-                            score=score, param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
-                            auc=auc, cm=cm, roc=roc)
+                           score=score, param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
+                           auc=auc, cm=cm, roc=roc, cm_ex=cm_ex, p_ex=p_ex, r_ex=r_ex, f_ex=f_ex)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
