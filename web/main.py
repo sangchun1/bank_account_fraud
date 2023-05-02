@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, session
 import pandas as pd
 import joblib
+from keras.models import load_model
+import os
+
+IMAGE_FOLDER = os.path.join('static', 'plots')
 
 app = Flask(__name__)
-
-#test_set=[]
-
-df = pd.read_csv('c:/bank_account_fraud/csv/model_results.csv')
+app.config['UPLOAD_FOLDER'] = IMAGE_FOLDER
 
 @app.route('/', methods=['GET'])
 def main():
@@ -14,10 +15,12 @@ def main():
 
 @app.route('/main_result', methods=['POST'])
 def main_result():
+    df = pd.read_csv('c:/bank_account_fraud/csv/model_results.csv')
+
     # 변수 입력값 불러오기
     income = float(request.form['income'])
     name_email_similarity = float(request.form['name_email_similarity'])
-    current_address_months_count = int(request.form['current_address_months_count'])
+    current_address_months_count = float(request.form['current_address_months_count'])
     customer_age = int(request.form['customer_age'])
     days_since_request = float(request.form['days_since_request'])
     intended_balcon_amount = float(request.form['intended_balcon_amount'])
@@ -25,9 +28,9 @@ def main_result():
     velocity_24h = float(request.form['velocity_24h'])
     date_of_birth_distinct_emails_4w = int(request.form['date_of_birth_distinct_emails_4w'])
     credit_risk_score = int(request.form['credit_risk_score'])
-    bank_months_count = int(request.form['bank_months_count'])
-    proposed_credit_limit = int(request.form['proposed_credit_limit'])
-    device_distinct_emails_8w = int(request.form['device_distinct_emails_8w'])
+    bank_months_count = float(request.form['bank_months_count'])
+    proposed_credit_limit = float(request.form['proposed_credit_limit'])
+    device_distinct_emails_8w = float(request.form['device_distinct_emails_8w'])
     month = int(request.form['month'])
     email_is_free = int(request.form['email_is_free'])
     if email_is_free == 1:
@@ -286,71 +289,85 @@ def main_result():
 
     # LOGIT
     logit_model = joblib.load('c:/bank_account_fraud/model/logit.h5')
-    logit_rate = logit_model.predict(test_set_scaled)
-    if logit_rate >= 0.5:
-        logit_result = '사기 계좌'
-    else:
+    logit_rate = logit_model.predict_proba(test_set_scaled)
+    if logit_rate[0][0] > logit_rate[0][1]:
+        logit_rate = logit_rate[0][0]
         logit_result = '정상 계좌'
-    logit_score = df[df.Model == 'Logit'].iloc[0, 1]
+    else:
+        logit_rate = logit_rate[0][1]
+        logit_result = '사기 계좌'
+    logit_score = df[df.Model == 'logit'].iloc[0, 1]
 
     # DECISION TREE
     tree_model = joblib.load('c:/bank_account_fraud/model/tree.h5')
-    tree_rate = tree_model.predict(test_set_scaled)
-    if tree_rate >= 0.5:
-        tree_result = '사기 계좌'
-    else:
+    tree_rate = tree_model.predict_proba(test_set_scaled)
+    if tree_rate[0][0] > tree_rate[0][1]:
+        tree_rate = tree_rate[0][0]
         tree_result = '정상 계좌'
-    tree_score = df[df.Model == 'Tree'].iloc[0, 1]
+    else:
+        tree_rate = tree_rate[0][1]
+        tree_result = '사기 계좌'
+    tree_score = df[df.Model == 'tree'].iloc[0, 1]
 
     # RANDOM FOREST
     rf_model = joblib.load('c:/bank_account_fraud/model/rf.h5')
-    rf_rate = rf_model.predict(test_set_scaled)
-    if rf_rate >= 0.5:
-        rf_result = '사기 계좌'
-    else:
+    rf_rate = rf_model.predict_proba(test_set_scaled)
+    if rf_rate[0][0] > rf_rate[0][1]:
+        rf_rate = rf_rate[0][0]
         rf_result = '정상 계좌'
-    rf_score = df[df.Model == 'RF'].iloc[0, 1]
+    else:
+        rf_rate = rf_rate[0][1]
+        rf_result = '사기 계좌'
+    rf_score = df[df.Model == 'rf'].iloc[0, 1]
 
     # SVM
     svm_model = joblib.load('c:/bank_account_fraud/model/svm.h5')
-    svm_rate = svm_model.predict(test_set_scaled)
-    if svm_rate >= 0.5:
-        svm_result = '사기 계좌'
-    else:
+    svm_rate = svm_model.predict_proba(test_set_scaled)
+    if svm_rate[0][0] > svm_rate[0][1]:
+        svm_rate = svm_rate[0][0]
         svm_result = '정상 계좌'
-    svm_score = df[df.Model == 'SVM'].iloc[0, 1]
+    else:
+        svm_rate = svm_rate[0][1]
+        svm_result = '사기 계좌'
+    svm_score = df[df.Model == 'svm'].iloc[0, 1]
 
     # KNN
     knn_model = joblib.load('c:/bank_account_fraud/model/knn.h5')
-    knn_rate = knn_model.predict(test_set_scaled)
-    if knn_rate >= 0.5:
-        knn_result = '사기 계좌'
-    else:
+    knn_rate = knn_model.predict_proba(test_set_scaled)
+    if knn_rate[0][0] > knn_rate[0][1]:
+        knn_rate = knn_rate[0][0]
         knn_result = '정상 계좌'
-    knn_score = df[df.Model == 'KNN'].iloc[0, 1]
+    else:
+        knn_rate = knn_rate[0][1]
+        knn_result = '사기 계좌'
+    knn_score = df[df.Model == 'knn'].iloc[0, 1]
 
     # ANN
     ann_model = joblib.load('c:/bank_account_fraud/model/ann.h5')
-    ann_rate = ann_model.predict(test_set_scaled)
-    if ann_rate >= 0.5:
-        ann_result = '사기 계좌'
-    else:
+    ann_rate = ann_model.predict_proba(test_set_scaled)
+    if ann_rate[0][0] > ann_rate[0][1]:
+        ann_rate = ann_rate[0][0]
         ann_result = '정상 계좌'
-    ann_score = df[df.Model == 'ANN'].iloc[0, 1]
+    else:
+        ann_rate = ann_rate[0][1]
+        ann_result = '사기 계좌'
+    ann_score = df[df.Model == 'ann'].iloc[0, 1]
 
     # DNN
-    dnn_model = joblib.load('c:/bank_account_fraud/model/dnn.h5')
+    dnn_model = load_model('c:/bank_account_fraud/model/dnn.h5')
     dnn_rate = dnn_model.predict(test_set_scaled)
-    if dnn_rate >= 0.5:
-        dnn_result = '사기계좌'
+    if dnn_rate[0][0] >= 0.5:
+        dnn_rate = dnn_rate[0][0]
+        dnn_result = '사기 계좌'
     else:
-        dnn_result = '정상계좌'
-    dnn_score = df[df.Model == 'DNN'].iloc[0, 1]
+        dnn_rate = 1 - dnn_rate[0][0]
+        dnn_result = '정상 계좌'
+    dnn_score = df[df.Model == 'dnn'].iloc[0, 1]
 
-    return render_template('/main_result.html', logit_rate='{:.2f}%'.format(logit_rate[0][0]*100),
-                           tree_rate='{:.2f}%'.format(tree_rate[0][0]*100), rf_rate='{:.2f}%'.format(rf_rate[0][0]*100),
-                           svm_rate='{:.2f}%'.format(svm_rate[0][0] * 100), knn_rate='{:.2f}%'.format(knn_rate[0][0]*100),
-                           ann_rate='{:.2f}%'.format(ann_rate[0][0]*100), dnn_rate='{:.2f}%'.format(dnn_rate[0][0] * 100),
+    return render_template('/main_result.html', logit_rate='{:.2f}%'.format(logit_rate*100),
+                           tree_rate='{:.2f}%'.format(tree_rate*100), rf_rate='{:.2f}%'.format(rf_rate*100),
+                           svm_rate='{:.2f}%'.format(svm_rate*100), knn_rate='{:.2f}%'.format(knn_rate*100),
+                           ann_rate='{:.2f}%'.format(ann_rate*100), dnn_rate='{:.2f}%'.format(dnn_rate*100),
                            logit_result=logit_result, tree_result=tree_result, rf_result=rf_result, svm_result=svm_result,
                            knn_result=knn_result, ann_result=ann_result, dnn_result=dnn_result, logit_score=logit_score,
                            tree_score=tree_score, rf_score=rf_score, svm_score=svm_score, knn_score=knn_score,
@@ -366,29 +383,52 @@ def main_result():
                            )
 
 @app.route('/model_result', methods=['POST'])
-def model_result(model):
+def model_result():
+    df = pd.read_csv('c:/bank_account_fraud/csv/model_results.csv')
     test_set = session['test_set']
     scaler = joblib.load('c:/bank_account_fraud/model/scaler.model')
     test_set_scaled = scaler.transform(test_set)
-    m = joblib.load(f'c:/bank_account_fraud/model/{model}.h5')
-    rate = m.predict(test_set_scaled)
-    if rate >= 0.5:
-        result = '사기 계좌'
+
+    model_name = request.form['model']
+
+    if model_name == 'dnn':
+        m = load_model(f'c:/bank_account_fraud/model/{model_name}.h5')
+
+        rate = m.predict(test_set_scaled)
+        if rate[0][0] >= 0.5:
+            rate = rate[0][0]
+            result = '사기 계좌'
+        else:
+            rate = 1 - rate[0][0]
+            result = '정상 계좌'
     else:
-        result = '정상 계좌'
-    score = df[df.Model == model].iloc[0, 1]
-    param = df[df.Model == model].iloc[0, 2]
-    precision = df[df.Model == model].iloc[0, 3]
-    recall = df[df.Model == model].iloc[0, 4]
-    f = df[df.Model == model].iloc[0, 5]
-    tpr = df[df.Model == model].iloc[0, 6]
-    fpr = df[df.Model == model].iloc[0, 7]
-    auc = df[df.Model == model].iloc[0, 8]
-    return render_template(f'/{model}_result.html', rate='{:.2f}%'.format(rate[0][0]*100), result=result,
-                           score=score, param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
-                           auc=auc)
+        m = joblib.load(f'c:/bank_account_fraud/model/{model_name}.h5')
+
+        rate = m.predict_proba(test_set_scaled)
+        if rate[0][0] > rate[0][1]:
+            rate = rate[0][0]
+            result = '정상 계좌'
+        else:
+            rate = rate[0][1]
+            result = '사기 계좌'
+
+    score = df[df.Model == model_name].iloc[0, 1]
+    param = df[df.Model == model_name].iloc[0, 2]
+    precision = df[df.Model == model_name].iloc[0, 3]
+    recall = df[df.Model == model_name].iloc[0, 4]
+    f = df[df.Model == model_name].iloc[0, 5]
+    tpr = df[df.Model == model_name].iloc[0, 6]
+    fpr = df[df.Model == model_name].iloc[0, 7]
+    auc = df[df.Model == model_name].iloc[0, 8]
+
+    cm = os.path.join(app.config['UPLOAD_FOLDER'], f'{model_name}_cm.png')
+    roc = os.path.join(app.config['UPLOAD_FOLDER'], f'{model_name}_roc.png')
+
+    return render_template(f'/{model_name}_result.html', rate='{:.2f}%'.format(rate*100), result=result,
+                            score=score, param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
+                            auc=auc, cm=cm, roc=roc)
 
 if __name__ == '__main__':
-    #웹브라우저에서 실행할 때 http://localhost로 하면 느림
-    #http://127.0.0.1로 할 것
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(port=8000, threaded=False)

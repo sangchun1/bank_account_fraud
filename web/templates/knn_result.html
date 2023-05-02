@@ -4,9 +4,70 @@
     <meta charset="UTF-8">
     <title>사례기반추론 상세 결과</title>
 </head>
-<body>
+<body align="center">
     <h2>사례기반추론(K-Nearest Neighbors) 상세 결과</h2>
-
+    <table align="center" border="1">
+        <tr>
+            <th>결과</th>
+            <td>{{result}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>확률</th>
+            <td>{{rate}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>모형 정확도</th>
+            <td>{{score}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>최적의 파라미터</th>
+            <td>{{param}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Precision</th>
+            <td>{{precision}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Recall</th>
+            <td>{{recall}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>F1-score</th>
+            <td>{{f}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Confusion Matrix</th>
+            <td><img src="{{cm}}" alt="Confusion Matrix"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TPR</th>
+            <td>{{tpr}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>FPR</th>
+            <td>{{fpr}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>ROC-Curve</th>
+            <td><img src="{{roc}}" alt="ROC Curve"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>AUC</th>
+            <td>{{auc}}</td>
+            <td></td>
+        </tr>
+    </table>
     <a href="#" onclick="history.back()">Back</a>
     <a href="/">Home</a>
 </body>
