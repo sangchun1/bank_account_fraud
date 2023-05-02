@@ -347,7 +347,7 @@ def main_result():
     else:
         dnn_result = '정상계좌'
     dnn_score = df[df.Model == 'DNN'].iloc[0, 1]
-
+    print(intended_balcon_amount)
     return render_template('/main_result.html', logit_rate='{:.2f}%'.format(logit_rate[0][0]*100),
                            tree_rate='{:.2f}%'.format(tree_rate[0][0]*100), rf_rate='{:.2f}%'.format(rf_rate[0][0]*100),
                            svm_rate='{:.2f}%'.format(svm_rate[0][0] * 100), knn_rate='{:.2f}%'.format(knn_rate[0][0]*100),
