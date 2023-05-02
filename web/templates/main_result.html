@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>은행 사기계좌 탐지 결과</title>
+    <style>table { border-collapse: collapse; }</style>
 </head>
 <body align="center">
     <h1>은행 사기계좌 탐지 결과</h1>
@@ -12,7 +13,7 @@
     </div>
     <div style="width:50%;float:left;">
         <h2>입력값</h2>
-        <table align="center" border="1">
+        <table align="center" border="1" style="width:90%">
             <tr>
                 <td align="left">연간 소득 분위수(0~1):</td>
                 <td>{{income}}</td>
@@ -117,9 +118,9 @@
     </div>
     <div style="width:50%;float:right;">
         <h2>결과</h2>
-        <table align="center" border="1">
+        <table align="center" border="1" style="width:80%">
             <tr>
-                <th>모형</th>
+                <th style="height:50px">모형</th>
                 <th>결과</th>
                 <th>확률</th>
                 <th>모형 정확도</th>
@@ -127,7 +128,7 @@
             </tr>
             <form method="post" action="model_result">
                 <tr>
-                    <th>로지스틱</th>
+                    <th style="height:50px">로지스틱</th>
                     <td>{{logit_result}}</td>
                     <td>{{logit_rate}}</td>
                     <td>{{logit_score}}</td>
@@ -139,7 +140,7 @@
             </form>
             <form method="post" action="model_result">
                <tr>
-                    <th>의사결정나무</th>
+                    <th style="height:50px">의사결정나무</th>
                     <td>{{tree_result}}</td>
                     <td>{{tree_rate}}</td>
                     <td>{{tree_score}}</td>
@@ -151,7 +152,7 @@
             </form>
             <form method="post" action="model_result">
                 <tr>
-                    <th>랜덤포레스트</th>
+                    <th style="height:50px">랜덤포레스트</th>
                     <td>{{rf_result}}</td>
                     <td>{{rf_rate}}</td>
                     <td>{{rf_score}}</td>
@@ -163,7 +164,7 @@
             </form>
             <form method="post" action="model_result">
                 <tr>
-                    <th>서포트벡터머신</th>
+                    <th style="height:50px">서포트벡터머신</th>
                     <td>{{svm_result}}</td>
                     <td>{{svm_rate}}</td>
                     <td>{{svm_score}}</td>
@@ -175,7 +176,7 @@
             </form>
             <form method="post" action="model_result">
                 <tr>
-                    <th>사례기반추론</th>
+                    <th style="height:50px">사례기반추론</th>
                     <td>{{knn_result}}</td>
                     <td>{{knn_rate}}</td>
                     <td>{{knn_score}}</td>
@@ -187,7 +188,7 @@
             </form>
             <form method="post" action="model_result">
                 <tr>
-                    <th>인공신경망(scikit-learn)</th>
+                    <th style="height:50px">인공신경망(scikit-learn)</th>
                     <td>{{ann_result}}</td>
                     <td>{{ann_rate}}</td>
                     <td>{{ann_score}}</td>
@@ -199,7 +200,7 @@
             </form>
             <form method="post" action="model_result">
                 <tr>
-                    <th>인공신경망(tensorflow)</th>
+                    <th style="height:50px">인공신경망(tensorflow)</th>
                     <td>{{dnn_result}}</td>
                     <td>{{dnn_rate}}</td>
                     <td>{{dnn_score}}</td>
