@@ -43,7 +43,7 @@
             <th>Confusion Matrix</th>
             <td><img src="{{cm}}" alt="Confusion Matrix"></td>
             <td>
-                <img src="{{cm_ex}}" alt="CM Explanation">
+                <img src="{{cm_ex}}" alt="CM Explanation" width="60%">
                 <ul>
                     <li>True Positive(TP) : 실제 True인 정답을 True라고 예측 (정답)</li>
                     <li>False Positive(FP) : 실제 False인 정답을 True라고 예측 (오답)</li>
@@ -72,7 +72,8 @@
             <th>F1-score</th>
             <td>{{f}}</td>
             <td>
-                정밀도(precision)와 재현율(recall)의 조화평균. 정밀도가 높다고 무조건 좋은 알고리즘도 아니고 재현율이 높다고 무조건 좋은 모형이 아니다. 정밀도만 높고 재현율이 낮다면...
+                정밀도(precision)와 재현율(recall)의 조화평균. 정밀도가 높다고 무조건 좋은 알고리즘도 아니고 재현율이 높다고 무조건 좋은 모형이 아니다.
+                정밀도만 높고 재현율이 낮다면 알고리즘이 사기 계좌라고 예측했지만 정상인 계좌들이 많을 것이고, 재현율만 높고 정밀도가 낮다면 실제 사기 계좌이지만 알고리즘이 정상계좌로 예측하는 경우가 많을 것이다.
                 그래서 그 둘의 조화평균인 F1-score를 보아 좋은 알고리즘인지 아닌지를 판단한다. F1-score가 높을 수록 좋은 알고리즘이다.<br>
                 <img src="{{f_ex}}" alt="F1-Score Explanation">
             </td>

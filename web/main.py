@@ -369,9 +369,10 @@ def main_result():
                            svm_rate='{:.2f}%'.format(svm_rate*100), knn_rate='{:.2f}%'.format(knn_rate*100),
                            ann_rate='{:.2f}%'.format(ann_rate*100), dnn_rate='{:.2f}%'.format(dnn_rate*100),
                            logit_result=logit_result, tree_result=tree_result, rf_result=rf_result, svm_result=svm_result,
-                           knn_result=knn_result, ann_result=ann_result, dnn_result=dnn_result, logit_score=logit_score,
-                           tree_score=tree_score, rf_score=rf_score, svm_score=svm_score, knn_score=knn_score,
-                           ann_score=ann_score, dnn_score=dnn_score, income=income, name_email_similarity=name_email_similarity,
+                           knn_result=knn_result, ann_result=ann_result, dnn_result=dnn_result, logit_score='{:.2f}%'.format(logit_score*100),
+                           tree_score='{:.2f}%'.format(tree_score*100), rf_score='{:.2f}%'.format(rf_score*100), svm_score='{:.2f}%'.format(svm_score*100),
+                           knn_score='{:.2f}%'.format(knn_score*100), ann_score='{:.2f}%'.format(ann_score*100), dnn_score='{:.2f}%'.format(dnn_score*100),
+                           income=income, name_email_similarity=name_email_similarity,
                            current_address_months_count=current_address_months_count, customer_age=customer_age,
                            days_since_request=days_since_request, intended_balcon_amount=intended_balcon_amount,
                            zip_count_4w=zip_count_4w, velocity_24h=velocity_24h, date_of_birth_distinct_emails_4w=date_of_birth_distinct_emails_4w,
@@ -429,7 +430,7 @@ def model_result():
     f_ex = os.path.join(app.config['UPLOAD_FOLDER'], 'f_ex.png')
 
     return render_template(f'/{model_name}_result.html', rate='{:.2f}%'.format(rate*100), result=result,
-                           score=score, param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
+                           score='{:.2f}%'.format(score*100), param=param, precision=precision, recall=recall, f=f, tpr=tpr, fpr=fpr,
                            auc=auc, cm=cm, roc=roc, cm_ex=cm_ex, p_ex=p_ex, r_ex=r_ex, f_ex=f_ex)
 
 if __name__ == '__main__':
